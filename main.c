@@ -7,7 +7,7 @@
 #include <ctype.h>
 #include <math.h>
 #include "funcs.h"
-
+#include "modules.h"
 /* Prototypes mirroring the C++ version */
 static void main_menu(void);            /* runs in the main loop */
 static void print_main_menu(void);      /* output the main menu description */
