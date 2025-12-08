@@ -5,6 +5,14 @@
 
 #define PI 3.14159265358979323846
 
+static void print_scaled_time(double s) {
+    if (s < 1e-9)       printf("%.3f ps", s * 1e12); // ps
+    else if (s < 1e-6)  printf("%.3f ns", s * 1e9);  // ns
+    else if (s < 1e-3)  printf("%.3f us", s * 1e6);  // us
+    else if (s < 1.0)   printf("%.3f ms", s * 1e3);  // ms
+    else                printf("%.3f s", s);         // s
+}
+
 void run_signal_analyser(void) {
     char save_choice[16];
     
@@ -23,7 +31,9 @@ void run_signal_analyser(void) {
     double v_rms = v_pk / sqrt(2);
 
     printf("\n--- Analysis Results ---\n");
-    printf("Period (T):        %.6f s\n", period);
+    printf("Period (T):        ");
+    print_scaled_time(period);
+    printf(" (%.4e s)\n", period);
     printf("Angular Freq (w):  %.2f rad/s\n", omega);
     printf("RMS Voltage:       %.2f V\n", v_rms);
 
@@ -35,7 +45,7 @@ void run_signal_analyser(void) {
             for (int i = 0; i <= 50; i++) {
                 double t = (period / 50.0) * i;
                 double amp = v_pk * sin(omega * t);
-                fprintf(fp, "%.6f,%.6f\n", t, amp);
+                fprintf(fp, "%.8e,%.6f\n", t, amp);//change to scientific notation
             }
             fclose(fp);
             printf(">> Data saved to 'waveform.csv'.\n");
