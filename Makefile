@@ -5,7 +5,7 @@
 # Note to students: You dont need to fully understand this! 
 
 main.out:
-	gcc main.c funcs.c -o main.out -lm
+	gcc main.c utils.c calc.c signal.c resistor.c sensor.c circuit.c -o main.out -lm
 
 clean:
 	-rm main.out
